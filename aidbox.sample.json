@@ -1,0 +1,7 @@
+{
+  "name": "test",
+  "title": "test plugin",
+  "version": "0.0.1",
+  "description": "just plugin template",
+  "server" : "http://sample-app.aidbox.io/deploy"
+}
