@@ -1,5 +1,5 @@
 {
-  "name": "aidbox",
+  "name": "aidbox-cli",
   "version": "0.0.1",
   "description": "Aidbox CLI",
   "main": "index.js",
@@ -8,18 +8,23 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Aidbox/aidbox-cli"
+    "url": "git+https://github.com/Aidbox/aidbox-cli.git"
   },
-  "keywords": [ "aidbox"],
+  "keywords": [
+    "aidbox"
+  ],
   "author": "Aidbox",
   "license": "MIT",
-  "bugs": { "url": "https://github.com/Aidbox/aidbox-cli/issues" },
+  "bugs": {
+    "url": "https://github.com/Aidbox/aidbox-cli/issues"
+  },
   "dependencies": {
-    "archiver":"latest",
-    "restler":"latest"
+    "archiver": "latest",
+    "restler": "latest"
   },
   "bin": {
     "aidbox": "bin/aidbox"
   },
-  "homepage": "https://github.com/Aidbox/aidbox-cli"
+  "homepage": "https://github.com/Aidbox/aidbox-cli",
+  "devDependencies": {}
 }
