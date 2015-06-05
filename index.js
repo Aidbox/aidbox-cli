@@ -1,5 +1,7 @@
 var fs = require('fs');
 var archiver = require('archiver');
+var http = require('http');
+var querystring = require('querystring');
 
 function q(){
   var listeners = [];
@@ -53,12 +55,70 @@ function compress(aidbox){
   return p;
 }
 
+function authorize(aidbox){
+  console.log('Authorization', aidbox.name)
+  var p = q()
+
+  var auth = 'Basic ' + new Buffer(aidbox.client_id 
+      + ':' + aidbox.client_secret).toString('base64');
+  var body  = {
+    'grant_type': aidbox.grant_type,
+    'scope': aidbox.ups
+  };
+  var postData = querystring.stringify(body);
+  var header = {
+    'Authorization': auth,
+    'Content-Type': 'application/x-www-form-urlencoded',
+    'Content-Length': postData.length
+  };
+  var req = http.request( {
+    method: 'POST',
+    hostname: aidbox.server,
+    port : aidbox.port,
+    path: '/oauth/token',
+    headers: header
+  });
+  req.on('response', function (response) {
+    var str_data = "";
+    var data = {};
+
+    response.on('data', function (chunk) {
+      str_data += chunk;
+    });
+
+    response.on('end', function(){
+      // Check response status
+      if(response.statusCode == 403){
+        console.error('Access deny');
+        return p;
+      }
+      
+      data = JSON.parse(str_data);
+      for(var i in data){
+        aidbox[i] = data[i];
+      }
+      p.resolve(aidbox)
+    })
+  });
+
+  req.on('error', function(e) {
+    console.log('problem with request: ' + e.message);
+    return p;
+  });
+
+  req.write(postData);
+  req.end();
+
+  return p;
+}
+
 function publish(aidbox){
   console.log('Publishing application', aidbox.name)
+    console.log(aidbox);
   var p = q()
   var stats = fs.statSync("./dist.tar.gz")
   var rest = require('restler');
-  var url = aidbox.server || 'http://fhirplace.health-samurai.io/api/app';
+  var url = 'http://'+aidbox.server+':8080/deploy';
   rest.post(url, {
     multipart: true,
     data: {
@@ -80,5 +140,6 @@ function publish(aidbox){
 module.exports = function(){
   config()
   .then(compress)
+  .then(authorize)
   .then(publish)
 }

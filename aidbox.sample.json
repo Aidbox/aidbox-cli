@@ -4,4 +4,9 @@
   "version": "0.0.1",
   "description": "just plugin template",
   "server" : "http://sample-app.aidbox.io/deploy"
+  "client_id" : "root",
+  "client_secret" : "secret",
+  "grant_type" : "client_credentials",
+  "scope": "ups",
+  "port" : 80
 }
