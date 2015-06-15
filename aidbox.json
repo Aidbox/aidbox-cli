@@ -1,0 +1,11 @@
+{
+  "name": "root",
+  "title": "test plugin",
+  "version": "0.0.1",
+  "description": "just plugin template",
+  "server" : "http://aidbox.hs",
+  "client_id" : "implicit",
+  "client_secret" : "doesnotmatter",
+  "grant_type" : "client_credentials",
+  "scope": "ups"
+}

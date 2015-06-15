@@ -1,6 +1,6 @@
 {
   "name": "aidbox-cli",
-  "version": "0.0.3",
+  "version": "0.1.1",
   "description": "Aidbox CLI",
   "main": "index.js",
   "scripts": {
@@ -20,7 +20,8 @@
   },
   "dependencies": {
     "archiver": "latest",
-    "restler": "latest"
+    "restler": "latest",
+    "cli": "latest"
   },
   "bin": {
     "aidbox": "bin/aidbox"
