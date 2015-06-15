@@ -1,7 +1,6 @@
 var fs = require('fs');
 var archiver = require('archiver');
-var http = require('http');
-var querystring = require('querystring');
+var rest = require('restler');
 
 function q(){
   var listeners = [];
@@ -59,73 +58,57 @@ function authorize(aidbox){
   console.log('Authorization', aidbox.name)
   var p = q()
 
-  var auth = 'Basic ' + new Buffer(aidbox.client_id 
-      + ':' + aidbox.client_secret).toString('base64');
-  var body  = {
-    'grant_type': aidbox.grant_type,
-    'scope': aidbox.ups
-  };
-  var postData = querystring.stringify(body);
-  var header = {
-    'Authorization': auth,
-    'Content-Type': 'application/x-www-form-urlencoded',
-    'Content-Length': postData.length
-  };
-  var req = http.request( {
-    method: 'POST',
-    hostname: aidbox.server,
-    port : aidbox.port,
-    path: '/oauth/token',
-    headers: header
-  });
-  req.on('response', function (response) {
-    var str_data = "";
-    var data = {};
-
-    response.on('data', function (chunk) {
-      str_data += chunk;
-    });
-
-    response.on('end', function(){
-      // Check response status
+  console.log('Auth: '+aidbox.server+'/oauth/token');
+  
+  rest.post(aidbox.server+'/oauth/token', { 
+      username: aidbox.client_id,
+      password: aidbox.client_secret,
+      data:{
+        'grant_type': aidbox.grant_type,
+        'scope': aidbox.ups
+      }
+    })
+    .on('complete', function(data, response) {
       if(response.statusCode == 403){
         console.error('Access deny');
         return p;
       }
-      
-      data = JSON.parse(str_data);
-      for(var i in data){
-        aidbox[i] = data[i];
+      if (data instanceof Error) {
+        console.log('Error:', data.message);
+        console.log(data)
+      } else {
+        console.log("Auth success");
+        for(var i in data){
+          aidbox[i] = data[i];
+        }
+        p.resolve(aidbox)
       }
-      p.resolve(aidbox)
     })
-  });
-
-  req.on('error', function(e) {
-    console.log('problem with request: ' + e.message);
-    return p;
-  });
-
-  req.write(postData);
-  req.end();
+    .on('error', function(e) {
+      console.log('problem with request: ' + e.message);
+      return p;
+    });
 
   return p;
 }
 
 function publish(aidbox){
   console.log('Publishing application', aidbox.name)
-    console.log(aidbox);
   var p = q()
   var stats = fs.statSync("./dist.tar.gz")
-  var rest = require('restler');
-  var url = 'http://'+aidbox.server+':8080/deploy';
-  rest.post(url, {
+
+  rest.post(aidbox.server+'/deploy', {
     multipart: true,
     data: {
       app: aidbox.name,
+      access_token: aidbox.access_token,
       file: rest.file('./dist.tar.gz', null, stats.size, null, 'application/x-gzip')
     }
-  }).on('complete', function(result) {
+  }).on('complete', function(result, response) {
+    if(response.statusCode == 403){
+      console.error('Access deny');
+      return p;
+    }
     if (result instanceof Error) {
       console.log('Error:', result.message);
       console.log(result)
