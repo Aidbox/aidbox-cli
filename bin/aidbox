@@ -3,72 +3,15 @@
 # Shift <coffee> from argv
 process.argv.shift()
 
-fs = require 'fs'
-cli = require 'cli'
-rest = require 'restler'
-read = require 'read'
-archiver = require 'archiver'
+cli   = require 'cli'
 
-aidbox = {}
+box   = require './utils/box'
+oauth = require './utils/oauth'
 
 cli.parse {
     list : ['l', 'List data']
   }, ['login', 'logout', 'box', 'user', 'deploy', 'test']
 
-# Read conf file
-readConf=(fileName)->
-  if fs.existsSync fileName
-    data = JSON.parse(fs.readFileSync fileName, 'utf8')
-    for  k,v of data
-      aidbox[k] = v
-
-# Get conf data
-config=()->
-  readConf 'aidbox.json'
-  readConf '.aidbox.json'
-  
-# Login to dashboard
-login=(box)->
-  if (aidbox.username && aidbox.password)
-    cli.info "You are logged in"
-  else
-    read {prompt: "Login: " }, (err, username)->
-      read {prompt: "Password: ", silent: true }, (err, password)->
-        rest.get aidbox.server+'/boxes/test', {
-            username: username
-            password: password
-            data:{
-              grant_type: 'client_credentials'
-              scope: 'ups'
-            }
-          }
-          .on 'complete', (data, response)->
-            if response.statusCode == 403
-              cli.error 'Access deny'
-              return
-            if data instanceof Error
-              cli.error data.message
-              cli.error data
-            else
-              cli.ok "Auth success"
-              for  k,v of data
-                aidbox[k] = v
-              fs.writeFile '.aidbox.json', JSON.stringify( {
-                username: username
-                password: password
-                access_token: data.access_token
-              }), (err)->
-                if err
-                  cli.error "Cannot save"
-                else
-                  cli.ok "Saved"
-          .on 'error', (e)->
-            cli.error 'Problem with request: ' + e.message
-
-# Logout
-logout=()->
-  fs.unlink '.aidbox.json', ()->
-    cli.ok "You are now logged out"
 
 # Deploy app
 deploy=()->
@@ -81,9 +24,9 @@ deploy=()->
   , 10
 
 cli.main (args, options)->
-  config()
   switch cli.command
-    when 'login' then login('test')
-    when 'logout' then logout()
+    when 'login'  then oauth.login(args)
+    when 'logout' then oauth.logout()
+    when 'box'    then box(args, options)
     when 'deploy' then deploy()
-    when 'test' then test()
+    when 'test'   then test()
