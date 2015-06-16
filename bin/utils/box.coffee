@@ -83,7 +83,8 @@ box=(args, options)->
     switch args[0]
       # Create new Box
       when 'new' then boxNew(args[1])
-      when 'switch' then boxSwitch(args[1])
+      # by default switch to box
+      else boxSwitch(args[0])
 
   else
     if options.list
