@@ -8,15 +8,15 @@ cli   = require 'cli'
 oauth  = require './utils/oauth'
 box    = require './utils/box'
 deploy = require './utils/deploy'
+user   = require './utils/user'
 
-cli.parse {
-    list : ['l', 'List data']
-  }, ['login', 'logout', 'box', 'user', 'deploy', 'test']
+cli.parse null, ['login', 'logout', 'box', 'user', 'deploy', 'test']
 
 cli.main (args, options)->
   switch cli.command
     when 'login'  then oauth.login(args)
     when 'logout' then oauth.logout()
     when 'box'    then box(args, options)
+    when 'user'   then user(args, options)
     when 'deploy' then deploy()
     when 'test'   then test()

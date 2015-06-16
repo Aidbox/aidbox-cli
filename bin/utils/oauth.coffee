@@ -11,14 +11,12 @@ login=()->
   else
     read {prompt: "Login: " }, (err, username)->
       read {prompt: "Password: ", silent: true }, (err, password)->
-        rest.get conf.server+'/boxes', {
+        rest.get conf.server+'/boxes',
             username: username
             password: password
-            data:{
+            data:
               grant_type: 'client_credentials'
               scope: 'ups'
-            }
-          }
           .on 'complete', (data, response)->
             if response.statusCode == 403
               cli.error 'Access deny'

@@ -25,10 +25,12 @@ boxList=(cb)->
 
 # Get current box name
 boxCurrent=()->
-  if conf.box.id && conf.box.secret
+  if conf.box && conf.box.id && conf.box.secret
     cli.ok "You current box [#{conf.box.id}]"
   else
     cli.info "No current box"
+    cli.info "For switch to box, try: $ aidbox box box_name"
+    cli.info "Or create new box: $ aidbox box new box_name"
 
 # Create new box
 boxNew=(name)->
@@ -83,16 +85,16 @@ box=(args, options)->
     switch args[0]
       # Create new Box
       when 'new' then boxNew(args[1])
-      # by default switch to box
+      # Show all boxes
+      when 'list'
+        cli.info "Boxes list"
+        boxList console.log
+
+      # by default, switch to box
       else boxSwitch(args[0])
 
   else
-    if options.list
-      # Show all boxes
-      cli.info "Boxes list"
-      boxList console.log
-    else
-      # Show current box name
-      boxCurrent()
+    # Show current box id
+    boxCurrent()
 
 module.exports = box
