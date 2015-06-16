@@ -32,7 +32,6 @@ boxCurrent=()->
 
 # Create new box
 boxNew=(name)->
-  console.log conf
   cli.info "Create new box [#{name}]"
   rest.post conf.server+"/boxes", {
     username: conf.username
@@ -52,6 +51,7 @@ boxNew=(name)->
         cli.error data.error
       else
         cli.ok "Box [#{name}] created"
+        cli.ok "Current box switch to box [#{name}]"
         conf.box = name
         conf.secret = data[0].secret
         config.save conf
@@ -65,7 +65,7 @@ searchBox=(boxes, key, val)->
       return i
   -1
 
-# Checkout to box
+# Switch to box
 boxSwitch=(name)->
   if !name
     return cli.error "No box selected"
