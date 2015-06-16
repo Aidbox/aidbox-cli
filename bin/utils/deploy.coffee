@@ -9,6 +9,8 @@ conf = config.conf
 
 #compress app
 compress=(cb)->
+  cli.info "Compress you app..."
+
   output = fs.createWriteStream('./dist.tar.gz')
   output.on 'close', cb
   
@@ -23,6 +25,8 @@ compress=(cb)->
     .finalize()
 
 publish=()->
+  cli.info "Publish app..."
+
   fileName = './dist.tar.gz'
   stats = fs.statSync fileName
   rest.post conf.box.host+'/deploy',
