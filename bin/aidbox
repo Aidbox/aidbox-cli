@@ -5,23 +5,13 @@ process.argv.shift()
 
 cli   = require 'cli'
 
-box   = require './utils/box'
-oauth = require './utils/oauth'
+oauth  = require './utils/oauth'
+box    = require './utils/box'
+deploy = require './utils/deploy'
 
 cli.parse {
     list : ['l', 'List data']
   }, ['login', 'logout', 'box', 'user', 'deploy', 'test']
-
-
-# Deploy app
-deploy=()->
-  i = 0
-  interval = setInterval ()->
-    cli.progress ++i / 100
-    if i == 100
-      clearInterval interval
-      cli.ok 'Finished!'
-  , 10
 
 cli.main (args, options)->
   switch cli.command

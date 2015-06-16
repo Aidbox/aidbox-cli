@@ -25,8 +25,8 @@ boxList=(cb)->
 
 # Get current box name
 boxCurrent=()->
-  if conf.box && conf.secret
-    cli.ok "You current box [#{conf.box}]"
+  if conf.box.id && conf.box.secret
+    cli.ok "You current box [#{conf.box.id}]"
   else
     cli.info "No current box"
 
@@ -51,9 +51,8 @@ boxNew=(name)->
         cli.error data.error
       else
         cli.ok "Box [#{name}] created"
-        cli.ok "Current box switch to box [#{name}]"
-        conf.box = name
-        conf.secret = data[0].secret
+        cli.ok "Current box switch to [#{name}]"
+        conf.box = data
         config.save conf
   .on 'error', (e)->
     cli.error 'Problem with request: ' + e.message
@@ -73,8 +72,7 @@ boxSwitch=(name)->
   boxList (boxes)->
     i = searchBox(boxes, 'id', name)
     if i != -1
-      conf.box = boxes[i].id
-      conf.secret = boxes[i].secret
+      conf.box = boxes[i]
       config.save(conf)
       cli.ok "Current box switch to box [#{name}]"
     else
