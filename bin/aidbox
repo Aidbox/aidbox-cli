@@ -9,7 +9,8 @@ user   = require './utils/user'
 deploy = require './utils/deploy'
 
 cli   = require 'cli'
-cli.parse null, ['login', 'logout', 'box', 'user', 'deploy', 'test']
+cli.parse null,
+['v', 'login', 'logout', 'box', 'user', 'deploy', 'test']
 
 cli.main (args, options)->
   switch cli.command
@@ -19,3 +20,4 @@ cli.main (args, options)->
     when 'user'   then user(args, options)
     when 'deploy' then deploy()
     when 'test'   then test()
+    when 'v'      then cli.ok "v0.4.0"

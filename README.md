@@ -1,4 +1,5 @@
 ## Aidbox CLI
+Command Line Interface - для работы с aidbox.io.
 
 First: create account on https://aidbox.io
 
