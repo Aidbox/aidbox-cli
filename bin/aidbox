@@ -18,6 +18,6 @@ cli.main (args, options)->
     when 'logout' then oauth.logout()
     when 'box'    then box(args, options)
     when 'user'   then user(args, options)
-    when 'deploy' then deploy()
+    when 'deploy' then deploy(args, options)
     when 'test'   then test()
-    when 'v'      then cli.ok "v0.4.0"
+    when 'v'      then cli.ok "v0.4.1"

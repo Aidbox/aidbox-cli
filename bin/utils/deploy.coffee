@@ -7,11 +7,14 @@ config   = require './conf'
 
 conf = config.conf
 
+dist = 'dist'
+distArchive = './aidboxdist.tar.gz'
+
 #compress app
 compress=(cb)->
   cli.info "Compress you app..."
 
-  output = fs.createWriteStream('./dist.tar.gz')
+  output = fs.createWriteStream(distArchive)
   output.on 'close', cb
   
   archive = archiver 'tar', {gzip: true, gzipOptions: { level: 1 }}
@@ -21,13 +24,13 @@ compress=(cb)->
     .pipe output
 
   archive
-    .bulk [{expand: true, cwd: 'dist', src: ['**']}]
+    .bulk [{expand: true, cwd: dist, src: ['**']}]
     .finalize()
 
 publish=()->
   cli.info "Publish app..."
 
-  fileName = './dist.tar.gz'
+  fileName = distArchive
   stats = fs.statSync fileName
   rest.post conf.box.host+'/deploy',
     multipart: true
@@ -44,8 +47,12 @@ publish=()->
       cli.error data
     else
       cli.ok data.message+" in box [#{conf.box.id}]"
+      fs.unlink distArchive, ()->
+        cli.ok "Tmp files removed"
 
-deploy=()->
+
+deploy=(args, options)->
+  dist = args[0] || dist
   compress publish
 
 module.exports = deploy

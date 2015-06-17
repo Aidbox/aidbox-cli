@@ -61,15 +61,24 @@ userNew=(args)->
         if err
           return cli.error err
         userRestCreate email, password
-      
+  
+# Show help
+userHelp=()->
+  console.log """
+  user list                -- Show users list in current box
+  user help                -- Show help
+  user new                 -- Create user via wizard
+  user new email:password  -- Create user one line
+  """
 
 user=(args, options)->
-  if args.length
-    switch args[0]
-      when 'new'  then userNew(args)
-      when 'list'
-        cli.info "Users list in box #{conf.box.id}"
-        userList console.log
+  switch args[0]
+    when 'new'  then userNew(args)
+    when 'help' then userHelp()
+    when 'list'
+      cli.info "Users list in box [#{conf.box.id}]"
+      userList console.log
+    else userHelp()
 
 module.exports = user
 

@@ -76,22 +76,36 @@ boxSwitch=(name)->
     if i != -1
       conf.box = boxes[i]
       config.save(conf)
-      cli.ok "Current box switch to box [#{name}]"
+      cli.ok "Current box switch to [#{name}]"
     else
       cli.error "Box [#{name}] not exist"
+
+# Show help data
+boxHelp=()->
+  console.log """
+    box                 -- Display current box
+    box help            -- Show help
+    box new <boxname>   -- Create new box with name <boxname>
+    box list            -- Show all available boxes
+    box use <boxname>   -- Switch current box to <boxname>
+    box destroy         -- Destroy current box [!not ready!]
+  """
 
 box=(args, options)->
   if args.length
     switch args[0]
       # Create new Box
       when 'new' then boxNew(args[1])
+      # Show help data
+      when 'help' then boxHelp()
       # Show all boxes
       when 'list'
         cli.info "Boxes list"
         boxList console.log
-
-      # by default, switch to box
-      else boxSwitch(args[0])
+      # Switch to box
+      when 'use' then boxSwitch(args[1])
+      # help by default
+      else boxHelp()
 
   else
     # Show current box id
