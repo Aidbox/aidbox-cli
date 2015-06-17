@@ -43,7 +43,7 @@ publish=()->
       cli.error data.message
       cli.error data
     else
-      cli.ok data.message
+      cli.ok data.message+" in box [#{conf.box.id}]"
 
 deploy=()->
   compress publish
