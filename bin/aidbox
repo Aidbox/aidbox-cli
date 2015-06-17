@@ -3,13 +3,12 @@
 # Shift <coffee> from argv
 process.argv.shift()
 
-cli   = require 'cli'
-
 oauth  = require './utils/oauth'
 box    = require './utils/box'
-deploy = require './utils/deploy'
 user   = require './utils/user'
+deploy = require './utils/deploy'
 
+cli   = require 'cli'
 cli.parse null, ['login', 'logout', 'box', 'user', 'deploy', 'test']
 
 cli.main (args, options)->

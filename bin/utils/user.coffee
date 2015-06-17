@@ -41,14 +41,15 @@ userRestCreate=(email, password)->
       else
         if data.errors
           cli.error "Cannot create user [#{email}] in box [#{conf.box.id}]"
+          cli.error data.errors.email
         else
-          cli.ok "User created successfully"
+          cli.ok "User [#{email}] created successfully in box [#{conf.box.id}]"
     .on 'error', (e)->
       cli.error 'Problem with request: ' + e.message
 
 # Create new user
 userNew=(args)->
-  cli.info "Create new user in box #{conf.box.id}"
+  cli.info "Create new user in box [#{conf.box.id}]"
   if args[1]
     params = args[1].split(":")
     userRestCreate params[0], params[1]
