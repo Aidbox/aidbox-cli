@@ -1,6 +1,6 @@
 
 # Aidbox CLI
-First, create an account on http://aidbox.io.
+First, create an account on https://aidbox.io.
 
 Now you need to install aidbox-cli utility globally. Also you may need to install coffee-script.
 
@@ -8,7 +8,7 @@ Now you need to install aidbox-cli utility globally. Also you may need to instal
 $ sudo npm install -g coffee-script
 $ sudo npm install -g aidbox-cli
 $ aidbox v
-  OK: v0.4.1
+  OK: v0.4.2
 ```
 
 ## Logging In and Out

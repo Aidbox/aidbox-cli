@@ -3,7 +3,7 @@ fs = require 'fs'
 cli = require 'cli'
 
 conf = {
-  server: process.env.AIDBOX_SERVER || "http://aidbox.io"
+  server: process.env.AIDBOX_SERVER || "https://aidbox.io"
 }
 confFileName = '.aidbox.json'
 
