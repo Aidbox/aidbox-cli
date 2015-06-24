@@ -1,6 +1,6 @@
 {
   "name": "aidbox-cli",
-  "version": "0.4.2",
+  "version": "AUTOVERSION",
   "description": "Aidbox CLI",
   "main": "index.js",
   "scripts": {
@@ -27,7 +27,8 @@
     "aidbox": "bin/aidbox"
   },
   "scripts": {
-      "prepublish": "`npm bin`/coffee --output lib --compile src"
+    "test": "echo 'TODO'",
+    "prepublish": "`npm bin`/coffee --output lib --compile src"
   },
   "homepage": "https://github.com/Aidbox/aidbox-cli",
   "devDependencies": {
