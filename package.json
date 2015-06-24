@@ -12,6 +12,7 @@
   ],
   "author": "Marat",
   "license": "MIT",
+  "files": ["bin", "lib", "src"],
   "bugs": {
     "url": "https://github.com/Aidbox/aidbox-cli/issues"
   },
