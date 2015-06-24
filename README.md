@@ -1,5 +1,6 @@
 
 # Aidbox CLI
+
 First, create an account on https://aidbox.io.
 
 Now you need to install aidbox-cli utility globally. Also you may need to install coffee-script.
