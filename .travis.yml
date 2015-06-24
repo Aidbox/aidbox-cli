@@ -1,9 +1,11 @@
 language: node_js
 node_js:
-  - "0.12"
+- '0.12'
 deploy:
   provider: npm
-  email: "muradbei@gmail.com"
-  api_key: "buaka"
+  email: muradbei@gmail.com
+  api_key:
+    secure: O9bScOI37fxn5exqb5jKUscxTSpqzLOetYh4e6X1HKxCCgg01FzMBDB/g96laQomq1PKsT6Hxkxk+mvV/X4xW8S54fhAz4gJvPnnlSqs0KRpGZIBrPCF0IrZ43+2eAOTd9AcC4J+AJb5CAm2T5gR1MppjIwMAjbuR0fpdnQJGQpd2UKTpZI9maZ3RGxvD0N36inLvxjDI8reiJbg1iqZM0irBvrIVgzQEANQ1exLNWMjswo0DUvRr3OCOV0T4KSbc9HMdlvWbi+wNqMhCX7/VGK/jjvDqhA89rqlGszbJHRkLPpoBn1n9tpKIRgJikhtGQTzN9jxkadq4V23ODYKYjprMy1OgGK8Ldmr/WI0VgOsRwEaHLQuVxlMoDPxxeRwdjXMGKtiTD0S0+wBpODL4QOX/9ogoKw8XbheQxvt6WyBV93cy01h9mtC0lGa3Hz1T0eTciHCQolnjmh+TehPHEOZJV65fGcaRQBkZuRs04SyHbdqNlAVaQyzv2bEgIAvFet9V9Z/8RZF4S/H6kgp2htK39RC2zozusmjUQkEH4Spjrt5xZhPWx65yYgOrafMwwghWBCqC10bVDLBkngpZ2ygz8XFqAl1lYmkpUT2JyVobNiRbSPL9H9nZtbXkLKPdwl0NoMGtEJ2nya0P4LW+Jb9xzXRDKwO40ZAZHUr4mw=
   on:
     tags: true
+    repo: Aidbox/aidbox-cli
