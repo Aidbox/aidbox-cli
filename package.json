@@ -27,8 +27,10 @@
     "aidbox": "bin/aidbox"
   },
   "scripts": {
-      "prepublish": "coffee --output lib --compile src"
+      "prepublish": "`npm bin`/coffee --output lib --compile src"
   },
   "homepage": "https://github.com/Aidbox/aidbox-cli",
-  "devDependencies": {}
+  "devDependencies": {
+    "coffee-script": "latest"
+  }
 }
