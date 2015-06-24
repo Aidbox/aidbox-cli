@@ -4,6 +4,7 @@ node_js:
 
 after_success:
   - 'if [ -n "$TRAVIS_TAG" ]; then sed -i.bak "s/0.0.0/$TRAVIS_TAG/g" package.json && rm package.json.bak; fi'
+  - 'npm run build'
 
 deploy:
   provider: npm

@@ -3,9 +3,6 @@
   "version": "0.0.0",
   "description": "Aidbox CLI",
   "main": "index.js",
-  "scripts": {
-    "test": "test"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Aidbox/aidbox-cli.git"
@@ -28,7 +25,7 @@
   },
   "scripts": {
     "test": "echo 'TODO'",
-    "prepublish": "`npm bin`/coffee --output lib --compile src"
+    "build": "`npm bin`/coffee --output lib --compile src && ls lib -R"
   },
   "homepage": "https://github.com/Aidbox/aidbox-cli",
   "devDependencies": {
