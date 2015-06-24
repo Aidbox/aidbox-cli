@@ -1,6 +1,6 @@
 {
   "name": "aidbox-cli",
-  "version": "AUTOVERSION",
+  "version": "0.0.0",
   "description": "Aidbox CLI",
   "main": "index.js",
   "scripts": {
