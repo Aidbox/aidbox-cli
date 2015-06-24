@@ -13,7 +13,7 @@
   "keywords": [
     "aidbox"
   ],
-  "author": "Aidbox",
+  "author": "Marat",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/Aidbox/aidbox-cli/issues"
@@ -25,6 +25,9 @@
   },
   "bin": {
     "aidbox": "bin/aidbox"
+  },
+  "scripts": {
+      "prepublish": "coffee --output lib --compile src"
   },
   "homepage": "https://github.com/Aidbox/aidbox-cli",
   "devDependencies": {}

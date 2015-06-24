@@ -3,3 +3,4 @@ dist*
 *sw?
 .aidbox.json
 dist.tar.gz
+lib/*
