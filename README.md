@@ -1,6 +1,8 @@
 
 # Aidbox CLI
 
+[![Build Status](https://travis-ci.org/Aidbox/aidbox-cli.svg?branch=0.4.2)](https://travis-ci.org/Aidbox/aidbox-cli)
+
 
 First, create an account on https://aidbox.io.
 
@@ -75,7 +77,7 @@ $ aidbox box new <boxname>
   INFO: Create new box [boxname]
   OK: Box [boxname] has been created
   OK: Current box has been switched to [boxname]
-``` 
+```
 
 #### box list
 
@@ -177,8 +179,8 @@ $ aidbox box use dev-myapp
 ; Now you need to deploy your application to dev-myapp box
 ; and nake sure eerything is working
 
-$ aidbox box 
-$ adibox deploy 
+$ aidbox box
+$ adibox deploy
 
 ; If everything works as intended, you can deploy application to prod-myapp box
 
