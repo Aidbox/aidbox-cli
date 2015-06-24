@@ -1,6 +1,6 @@
 deploy:
   provider: npm
   email: "muradbei@gmail.com"
-  api_key: "byaka"
+  api_key: "buaka"
   on:
     tags: true
