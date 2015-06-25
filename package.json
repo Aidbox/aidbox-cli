@@ -1,11 +1,8 @@
 {
   "name": "aidbox-cli",
-  "version": "0.4.2",
+  "version": "0.0.0",
   "description": "Aidbox CLI",
   "main": "index.js",
-  "scripts": {
-    "test": "test"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Aidbox/aidbox-cli.git"
@@ -15,6 +12,7 @@
   ],
   "author": "Marat",
   "license": "MIT",
+  "files": ["bin", "lib", "src"],
   "bugs": {
     "url": "https://github.com/Aidbox/aidbox-cli/issues"
   },
@@ -28,8 +26,9 @@
     "aidbox": "bin/aidbox"
   },
   "scripts": {
-      "prepublish": "`npm bin`/coffee --output lib --compile src",
-      "watch": "`npm bin`/coffee -w --output lib --compile src"
+    "test": "echo 'TODO'",
+    "build": "`npm bin`/coffee --output lib --compile src && ls lib -R",
+    "watch": "`npm bin`/coffee -w --output lib --compile src"
   },
   "homepage": "https://github.com/Aidbox/aidbox-cli",
   "devDependencies": {

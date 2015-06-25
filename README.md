@@ -1,6 +1,8 @@
 
 # Aidbox CLI
 
+[![Build Status](https://travis-ci.org/Aidbox/aidbox-cli.svg?branch=0.4.2)](https://travis-ci.org/Aidbox/aidbox-cli)
+
 
 First, create an account on https://aidbox.io.
 
@@ -10,7 +12,7 @@ Now you need to install aidbox-cli utility globally. Also you may need to instal
 $ sudo npm install -g coffee-script
 $ sudo npm install -g aidbox-cli
 $ aidbox v
-  OK: v0.4.2
+  OK: v0.4.7
 ```
 
 ## Logging In and Out
@@ -75,7 +77,7 @@ $ aidbox box new <boxname>
   INFO: Create new box [boxname]
   OK: Box [boxname] has been created
   OK: Current box has been switched to [boxname]
-``` 
+```
 
 #### box list
 
@@ -177,8 +179,8 @@ $ aidbox box use dev-myapp
 ; Now you need to deploy your application to dev-myapp box
 ; and nake sure eerything is working
 
-$ aidbox box 
-$ adibox deploy 
+$ aidbox box
+$ adibox deploy
 
 ; If everything works as intended, you can deploy application to prod-myapp box
 
