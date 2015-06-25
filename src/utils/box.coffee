@@ -2,26 +2,18 @@
 cli    = require 'cli'
 rest   = require 'restler'
 config = require './conf'
+helper = require './helper'
 
 conf = config.conf
 
 # Get all boxes
 boxList=(cb)->
-  rest.get conf.server+"/boxes", {
+  rest.get conf.server+"/boxes",
     username: conf.username
     password: conf.password
-  }
   .on 'complete', (data, response)->
-    if response.statusCode == 403
-      cli.error 'Access deny'
-      return
-    if data instanceof Error
-      cli.error data.message
-      cli.error data
-    else
-      cb data
-  .on 'error', (e)->
-    cli.error 'Problem with request: ' + e.message
+    helper.catchError data, response, cb
+  .on 'error', helper.errHandler
 
 # Get current box name
 boxCurrent=()->
@@ -35,20 +27,13 @@ boxCurrent=()->
 # Create new box
 boxNew=(name)->
   cli.info "Create new box [#{name}]"
-  rest.post conf.server+"/boxes", {
+  rest.post conf.server+"/boxes",
     username: conf.username
     password: conf.password
     data: JSON.stringify({ id: name })
     headers: {'Content-Type': 'application/json'}
-  }
   .on 'complete', (data, response)->
-    if response.statusCode == 403
-      cli.error 'Access deny'
-      return
-    if data instanceof Error
-      cli.error data.message
-      cli.error data
-    else
+    helper.catchError data, response, (data)->
       if data.status == 'error'
         cli.error data.error
       else
@@ -56,8 +41,7 @@ boxNew=(name)->
         cli.ok "Current box switch to [#{name}]"
         conf.box = data
         config.save conf
-  .on 'error', (e)->
-    cli.error 'Problem with request: ' + e.message
+  .on 'error', helper.errHandler
 
 # Search box by name in boxes list
 searchBox=(boxes, key, val)->
@@ -68,8 +52,7 @@ searchBox=(boxes, key, val)->
 
 # Switch to box
 boxSwitch=(name)->
-  if !name
-    return cli.error "No box selected"
+  return cli.error "No box selected" if !name
   
   boxList (boxes)->
     i = searchBox(boxes, 'id', name)
@@ -101,7 +84,7 @@ box=(args, options)->
       # Show all boxes
       when 'list'
         cli.info "Boxes list"
-        boxList console.log
+        boxList helper.boxTable
       # Switch to box
       when 'use' then boxSwitch(args[1])
       # help by default

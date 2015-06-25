@@ -3,6 +3,7 @@ cli    = require 'cli'
 rest   = require 'restler'
 read   = require 'read'
 config = require './conf'
+helper = require './helper'
 
 login=()->
   conf = config.conf
@@ -10,7 +11,9 @@ login=()->
     cli.info "You are logged in"
   else
     read {prompt: "Login: " }, (err, username)->
+      return cli.error err if err
       read {prompt: "Password: ", silent: true }, (err, password)->
+        return cli.error err if err
         rest.get conf.server+'/boxes',
             username: username
             password: password
@@ -18,26 +21,18 @@ login=()->
               grant_type: 'client_credentials'
               scope: 'ups'
           .on 'complete', (data, response)->
-            if response.statusCode == 403
-              cli.error 'Access deny'
-              return
-            if data instanceof Error
-              cli.error data.message
-              cli.error data
-            else
+            helper.catchError data, response, (data)->
               cli.ok "Auth success"
               conf.username = username
               conf.password = password
               config.save conf
-          .on 'error', (e)->
-            cli.error 'Problem with request: ' + e.message
+          .on 'error', helper.errHandler
 
 # Logout
 logout=()->
   config.clear()
   cli.ok "You are now logged out"
 
-module.exports = {
-  login : login
-  logout : logout
-}
+module.exports =
+  login: login
+  logout: logout

@@ -4,6 +4,7 @@ fs       = require 'fs'
 rest     = require 'restler'
 archiver = require 'archiver'
 config   = require './conf'
+helper   = require './helper'
 
 conf = config.conf
 
@@ -34,21 +35,16 @@ publish=()->
   stats = fs.statSync fileName
   rest.post conf.box.host+'/deploy',
     multipart: true
-    username: 'root'
+    username: conf.root
     password: conf.box.secret
     data:
       file: rest.file fileName, null, stats.size, null, 'application/x-gzip'
   .on 'complete', (data, response)->
-    if response.statusCode == 403
-      cli.error 'Access deny'
-      return
-    if data instanceof Error
-      cli.error data.message
-      cli.error data
-    else
+    helper.catchError data, response, (data)->
       cli.ok data.message+" in box [#{conf.box.id}]"
       fs.unlink distArchive, ()->
         cli.ok "Tmp files removed"
+  .on 'error', helper.errHandler
 
 
 deploy=(args, options)->

@@ -2,23 +2,23 @@
 fs = require 'fs'
 cli = require 'cli'
 
-conf = {
+conf =
   server: process.env.AIDBOX_SERVER || "https://aidbox.io"
-}
+  root: 'root'
+
 confFileName = '.aidbox.json'
 
 # Read conf file
 readConfFile=(fileName, conf)->
   if fs.existsSync fileName
     data = JSON.parse(fs.readFileSync fileName, 'utf8')
-    for  k,v of data
+    for k,v of data
       conf[k] = v
 
 # Save conf data
 writeConfFile=(data)->
   fs.writeFile confFileName, JSON.stringify(data), (err)->
-    if err
-      cli.error "Cannot save"
+    cli.error "Cannot save" if err
 
 # Delete conf file
 deleteConfFile=()->
@@ -29,7 +29,7 @@ deleteConfFile=()->
 readConfFile confFileName, conf
 
 module.exports = {
-  conf : conf
-  save : writeConfFile
+  conf: conf
+  save: writeConfFile
   clear: deleteConfFile
 }

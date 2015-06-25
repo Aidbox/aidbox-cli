@@ -21,13 +21,15 @@
   "dependencies": {
     "archiver": "latest",
     "restler": "latest",
-    "cli": "latest"
+    "cli": "latest",
+    "cli-table": "latest"
   },
   "bin": {
     "aidbox": "bin/aidbox"
   },
   "scripts": {
-      "prepublish": "`npm bin`/coffee --output lib --compile src"
+      "prepublish": "`npm bin`/coffee --output lib --compile src",
+      "watch": "`npm bin`/coffee -w --output lib --compile src"
   },
   "homepage": "https://github.com/Aidbox/aidbox-cli",
   "devDependencies": {
