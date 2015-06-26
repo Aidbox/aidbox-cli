@@ -12,22 +12,18 @@ conf =
 homedir=(username)->
   if username then path.resolve(path.dirname(home), username) else home
 
-test=()->
-  6
-
 confFileName = homedir()+'/.aidbox.json'
 
 # Read conf file
-readConfFile=(fileName, conf)->
+readConfFile=(fileName)->
   if fs.existsSync fileName
-    data = JSON.parse(fs.readFileSync fileName, 'utf8')
-    for k,v of data
-      conf[k] = v
+    JSON.parse(fs.readFileSync fileName, 'utf8')
+  else
+    conf
 
 # Save conf data
 writeConfFile=(data)->
-  fs.writeFile confFileName, JSON.stringify(data), (err)->
-    cli.error "Cannot save" if err
+  fs.writeFileSync confFileName, JSON.stringify(data)
 
 # Delete conf file
 deleteConfFile=()->
@@ -35,11 +31,10 @@ deleteConfFile=()->
     cli.ok "All session data are removed"
 
 # Get conf data
-readConfFile confFileName, conf
+readConf=()-> readConfFile confFileName
 
 module.exports =
-  conf: conf
+  conf: readConf
   save: writeConfFile
   clear: deleteConfFile
   homedir: homedir
-  test: test

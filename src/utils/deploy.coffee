@@ -6,7 +6,7 @@ archiver = require 'archiver'
 config   = require './conf'
 helper   = require './helper'
 
-conf = config.conf
+conf = config.conf()
 
 dist = 'dist'
 distArchive = './aidboxdist.tar.gz'

@@ -4,11 +4,11 @@ rest   = require 'restler'
 read   = require 'read'
 config = require './conf'
 helper = require './helper'
+conf   = config.conf()
 
 login=()->
-  conf = config.conf
   if (conf.username && conf.password)
-    cli.info "You are logged in"
+    cli.info "You are logged in #{conf.username}"
   else
     read {prompt: "Login: " }, (err, username)->
       return cli.error err if err

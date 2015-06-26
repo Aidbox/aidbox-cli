@@ -5,7 +5,7 @@ read   = require 'read'
 config = require './conf'
 helper = require './helper'
 
-conf = config.conf
+conf = config.conf()
 
 # Users list
 userList=(cb)->

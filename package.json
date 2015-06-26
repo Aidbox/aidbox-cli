@@ -32,6 +32,7 @@
   "scripts": {
     "build": "`npm bin`/coffee --output lib --compile src && ls lib -R",
     "test":  "npm run build && `npm bin`/coffee --compile test && ./node_modules/mocha/bin/mocha ./test/test.js",
+    "test-watch":  "npm run build && ./node_modules/mocha/bin/mocha -w --compilers coffee:coffee-script/register ./test/test.coffee",
     "watch": "`npm bin`/coffee -w --output lib --compile src"
   }
 }

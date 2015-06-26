@@ -4,7 +4,7 @@ rest   = require 'restler'
 config = require './conf'
 helper = require './helper'
 
-conf = config.conf
+conf = config.conf()
 
 # Get all boxes
 boxList=(cb)->
