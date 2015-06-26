@@ -1,11 +1,10 @@
 language: node_js
 node_js:
-  - '0.12'
-
+- '0.12'
 after_success:
-  - 'if [ -n "$TRAVIS_TAG" ]; then sed -i.bak "s/0.0.0/$TRAVIS_TAG/g" package.json && rm package.json.bak; fi'
-  - 'npm run build'
-
+- if [ -n "$TRAVIS_TAG" ]; then sed -i.bak "s/0.0.0/$TRAVIS_TAG/g" package.json &&
+  rm package.json.bak; fi
+- npm run build
 deploy:
   provider: npm
   email: muradbei@gmail.com
@@ -14,3 +13,6 @@ deploy:
   on:
     tags: true
     repo: Aidbox/aidbox-cli
+notifications:
+  slack:
+    secure: NOevH3YU2xNOEP0JuDLkCnNsXqC+2g+rOrwVVKg9PHOgLUDOTstLQqal4kioumWjagkv5MBPKekqoSBTwG04rv5NhwmlWXTGSLB0Rq33yWl1qM977AZiXv7wMfEIkFyqgsFpbPY+Elsr9FRbUYxZ7YLOAYhWqEQFrjJ6mNNA1iCLX86y7uWDhStyhAjRoz35uAi+Zm/Ml2Xc6mtm05yUxvT3/0eizCIznrOZR0fNMEe1hN6ySpNpcEYTDhb1KG9VLtbfFTu4jQoeb2/bFVZZaZbikb7LkNWAuP4bpoY9b1dGSBEKlfezMQFtfnsRVA3YTLJrzzv+NBhiOFVUVlQXkSh8nyjrCJ+teN6y5/1QCG3UPYl02qId3Z5Ym/6ZzT+MUpBxhrnWeFr+ORSmbotRlgsPkEyGv6XqvtqvOemoah4hTyGO0I3rwtwpWTmWM6c4VUb0WKInJr/gfOa3lf6K/r0zF+0AfVYDfGwBr/mSarGho0jpJQyB4/L0TVy9xMDhofJafHFk3qK84VaLIuo55QWoYlRNjqkes+QEHFotcYRuSveC12C+JkEMb90SwlK+bn9lWCdgFGqqHG8IMVB77Y46W5J+PhPbSyl/ci6FIDXaqSlP5usD6OPygosEjiSkjBjezy62qwCa8kOhb9nxHl0zN77lkL0d/zF5YZfEdRo=
