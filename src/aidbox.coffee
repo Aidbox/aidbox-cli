@@ -1,9 +1,9 @@
+cli    = require 'cli'
 oauth  = require './utils/oauth'
 box    = require './utils/box'
 user   = require './utils/user'
 deploy = require './utils/deploy'
-
-cli   = require 'cli'
+conf   = require './utils/conf'
 
 exports.run = ()->
   cli.parse null, ['v', 'login', 'logout', 'box', 'user', 'deploy', 'test']
@@ -14,5 +14,5 @@ exports.run = ()->
       when 'box'    then box(args, options)
       when 'user'   then user(args, options)
       when 'deploy' then deploy(args, options)
-      when 'test'   then test()
-      when 'v'      then cli.ok "v0.4.1"
+      when 'v'      then cli.ok "v0.4.8"
+      when 'test'   then conf.homedir()

@@ -1,12 +1,21 @@
 # Aidox CLI congiguration
-fs = require 'fs'
-cli = require 'cli'
+fs   = require 'fs'
+cli  = require 'cli'
+path = require('path')
+home = process.env[if process.platform == 'win32' then 'USERPROFILE' else 'HOME']
 
 conf =
   server: process.env.AIDBOX_SERVER || "https://aidbox.io"
   root: 'root'
 
-confFileName = '.aidbox.json'
+# Get home dir
+homedir=(username)->
+  if username then path.resolve(path.dirname(home), username) else home
+
+test=()->
+  6
+
+confFileName = homedir()+'/.aidbox.json'
 
 # Read conf file
 readConfFile=(fileName, conf)->
@@ -28,8 +37,9 @@ deleteConfFile=()->
 # Get conf data
 readConfFile confFileName, conf
 
-module.exports = {
+module.exports =
   conf: conf
   save: writeConfFile
   clear: deleteConfFile
-}
+  homedir: homedir
+  test: test

@@ -4,3 +4,4 @@ dist*
 .aidbox.json
 dist.tar.gz
 lib/*
+npm-debug.log

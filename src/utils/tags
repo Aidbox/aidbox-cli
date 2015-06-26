@@ -1,0 +1,30 @@
+!_TAG_FILE_FORMAT	2	/extended format/
+!_TAG_FILE_SORTED	0	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Łukasz Korecki	/lukasz@korecki.me/
+!_TAG_PROGRAM_NAME	CoffeeTags	//
+!_TAG_PROGRAM_URL	https://github.com/lukaszkorecki/CoffeeTags	/GitHub repository/
+!_TAG_PROGRAM_VERSION	0.6.0	//
+boxCurrent	box.coffee	/^boxCurrent=()->$/;"	f	line:19	language:coffee	object:window
+boxHelp	box.coffee	/^boxHelp=()->$/;"	f	line:67	language:coffee	object:window
+boxList	box.coffee	/^boxList=(cb)->$/;"	f	line:10	language:coffee	object:window
+boxNew	box.coffee	/^boxNew=(name)->$/;"	f	line:28	language:coffee	object:window
+boxSwitch	box.coffee	/^boxSwitch=(name)->$/;"	f	line:54	language:coffee	object:window
+conf	conf.coffee	/^  conf: conf$/;"	o	line:41	language:coffee
+conf	conf.coffee	/^conf =$/;"	o	line:7	language:coffee	object:window
+deleteConfFile	conf.coffee	/^deleteConfFile=()->$/;"	f	line:33	language:coffee	object:window
+exports	conf.coffee	/^module.exports =$/;"	o	line:40	language:coffee	object:window
+for 	box.coffee	/^  for v,i in boxes$/;"	b	line:48	language:coffee
+for 	conf.coffee	/^    for k,v of data$/;"	b	line:24	language:coffee
+homedir	conf.coffee	/^homedir=(username)->$/;"	f	line:12	language:coffee	object:window
+if 	box.coffee	/^      if data.status == 'error'$/;"	b	line:37	language:coffee
+if 	box.coffee	/^    if i != -1$/;"	b	line:59	language:coffee
+if 	box.coffee	/^    if v[key] == val$/;"	b	line:49	language:coffee
+if 	box.coffee	/^  if args.length$/;"	b	line:78	language:coffee
+if 	box.coffee	/^  if conf.box && conf.box.id && conf.box.secret$/;"	b	line:20	language:coffee
+if 	conf.coffee	/^  if fs.existsSync fileName$/;"	b	line:22	language:coffee
+if 	conf.coffee	/^  if username then path.resolve(path.dirname(home), username) else home$/;"	b	line:13	language:coffee
+readConfFile	conf.coffee	/^readConfFile=(fileName, conf)->$/;"	f	line:21	language:coffee	object:window
+searchBox	box.coffee	/^searchBox=(boxes, key, val)->$/;"	f	line:47	language:coffee	object:window
+switch 	box.coffee	/^    switch args[0]$/;"	b	line:79	language:coffee
+test	conf.coffee	/^test=()->$/;"	f	line:15	language:coffee	object:window
+writeConfFile	conf.coffee	/^writeConfFile=(data)->$/;"	f	line:28	language:coffee	object:window

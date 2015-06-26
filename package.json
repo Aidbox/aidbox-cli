@@ -2,36 +2,36 @@
   "name": "aidbox-cli",
   "version": "0.0.0",
   "description": "Aidbox CLI",
-  "main": "index.js",
+  "keywords": [
+    "aidbox"
+  ],
+  "homepage": "https://github.com/Aidbox/aidbox-cli",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Aidbox/aidbox-cli.git"
   },
-  "keywords": [
-    "aidbox"
-  ],
-  "author": "Marat",
-  "license": "MIT",
-  "files": ["bin", "lib", "src"],
   "bugs": {
     "url": "https://github.com/Aidbox/aidbox-cli/issues"
   },
+  "author": "Marat",
+  "license": "MIT",
+  "files": ["bin", "lib", "src"],
   "dependencies": {
     "archiver": "latest",
     "restler": "latest",
     "cli": "latest",
     "cli-table": "latest"
   },
+  "devDependencies": {
+    "coffee-script": "latest",
+    "mocha": "latest"
+  },
   "bin": {
     "aidbox": "bin/aidbox"
   },
   "scripts": {
-    "test": "echo 'TODO'",
     "build": "`npm bin`/coffee --output lib --compile src && ls lib -R",
+    "test":  "npm run build && `npm bin`/coffee --compile test && ./node_modules/mocha/bin/mocha ./test/test.js",
     "watch": "`npm bin`/coffee -w --output lib --compile src"
-  },
-  "homepage": "https://github.com/Aidbox/aidbox-cli",
-  "devDependencies": {
-    "coffee-script": "latest"
   }
 }
