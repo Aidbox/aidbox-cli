@@ -1,6 +1,6 @@
 {
   "name": "aidbox-cli",
-  "version": "0.5.2",
+  "version": "0.5.3",
   "description": "Aidbox CLI",
   "keywords": [
     "aidbox"
@@ -28,7 +28,7 @@
     "mocha": "latest"
   },
   "bin": {
-    "aidbox": "lib/aidbox.js"
+    "aidbox": "bin/aidbox"
   },
   "scripts": {
     "build": "`npm bin`/coffee --output lib --compile src && ls lib -R",
