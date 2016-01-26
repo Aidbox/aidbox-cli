@@ -28,7 +28,7 @@
     "mocha": "latest"
   },
   "bin": {
-    "aidbox": "bin/aidbox"
+    "aidbox": "lib/aidbox.js"
   },
   "scripts": {
     "build": "`npm bin`/coffee --output lib --compile src && ls lib -R",
