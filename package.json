@@ -18,6 +18,7 @@
   "files": ["bin", "lib", "src"],
   "dependencies": {
     "archiver": "latest",
+    "read": "latest",
     "restler": "latest",
     "cli": "latest",
     "cli-table": "latest"
