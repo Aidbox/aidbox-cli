@@ -33,6 +33,13 @@ $ aidbox logout
   OK: All session data has been removed
 ```
 
+Also you can log in via inline style
+
+``` bash
+$ aidbox login <email> <password>
+  OK: Auth success
+```
+
 # Getting Started
 
 In order to start working with Aidbox, you have to do 3 things:

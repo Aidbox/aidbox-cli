@@ -13,7 +13,10 @@ boxTableFill = (data)->
     chars: chars
     head: ['ID', 'Host', 'Created']
     colWidths: [15, 50, 30]
-  data.map((entry)-> table.push( [entry.id, entry.host, entry.created_at]))
+  data.map (entry)->
+    table.push [entry.id, entry.host, entry.created_at]
+    
+
   table
 
 userTableFill = (data)->
@@ -21,14 +24,14 @@ userTableFill = (data)->
     chars: chars
     head: ['ID', 'Email']
     colWidths: [5, 50]
-  data.map((entry)-> table.push( [entry.id, entry.email]))
+  data.map((entry) -> table.push( [entry.id, entry.email]))
   table
 
 boxTable = (data)->
-  tablePrint(boxTableFill (data))
+  tablePrint(boxTableFill data)
 
 userTable = (data)->
-  tablePrint(userTableFill (data))
+  tablePrint(userTableFill data)
 
 errHandler = (e)->
   cli.error 'Problem with request: ' + e.message
@@ -43,7 +46,18 @@ catchError = (data, res, cb)->
   else
     cb(data)
 
+clone = (x)->
+  JSON.parse(JSON.stringify(x))
+
+merge = ()->
+  Array.prototype.slice.call(arguments).reduce( (acc, o)->
+    for k, v of (o || {})
+      acc[k] = v
+    acc
+  , {})
+
 module.exports =
+  merge: merge
   boxTable: boxTable
   userTable: userTable
   errHandler: errHandler

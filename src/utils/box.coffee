@@ -1,20 +1,15 @@
 # BOX crud
 cli    = require 'cli'
-rest   = require 'restler'
-config = require './conf'
+rest   = require './rest'
 helper = require './helper'
-
-r  = require './rest'
-
-conf = config.conf()
+config = require './conf'
+conf   = config.conf()
 
 # Get all boxes
 boxList=(cb)->
-  rest.get conf.server+"/boxes",
-    username: conf.username
-    password: conf.password
-  .on 'complete', (data, response)->
-    helper.catchError data, response, cb
+  rest.get "/boxes"
+  .on 'success', cb
+  .on 'fail',  helper.errHandler
   .on 'error', helper.errHandler
 
 # Get current box name
@@ -29,27 +24,22 @@ boxCurrent=()->
 # Create new box
 boxNew=(name)->
   cli.info "Create new box [#{name}]"
-  rest.post conf.server+"/boxes",
-    username: conf.username
-    password: conf.password
+  rest.post "/boxes",
     data: JSON.stringify({ id: name })
-    headers: {'Content-Type': 'application/json'}
-  .on 'complete', (data, response)->
-    helper.catchError data, response, (data)->
-      if data.status == 'error'
-        cli.error data.error
-      else
-        cli.ok "Box [#{name}] created"
-        cli.ok "Current box switch to [#{name}]"
-        conf.box = data
-        config.save conf
+  .on 'success', (data, response)->
+    cli.ok "Box [#{name}] created"
+    cli.ok "Current box switch to [#{name}]"
+    conf.box = data
+    config.save conf
+  .on 'fail', (data)->
+    cli.error data.message
   .on 'error', helper.errHandler
 
 # Switch to box
 boxSwitch=(name)->
   return cli.error "No box selected" if !name
 
-  r.get "/boxes/#{name}"
+  rest.get "/boxes/#{name}"
   .on 'success', (data, response)->
     conf.box = data
     config.save(conf)

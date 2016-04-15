@@ -1,13 +1,13 @@
 # Login to dashboard
 cli    = require 'cli'
-rest   = require 'restler'
+rest   = require './rest'
 read   = require 'read'
 config = require './conf'
 helper = require './helper'
 conf   = config.conf()
 
 auth = (username, password)->
-  rest.get conf.server+'/boxes',
+  rest.get '/boxes',
       username: username
       password: password
       data:

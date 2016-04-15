@@ -1,7 +1,7 @@
 # Deploy app
 cli      = require 'cli'
 fs       = require 'fs'
-rest     = require 'restler'
+rest     = require './rest'
 archiver = require 'archiver'
 config   = require './conf'
 helper   = require './helper'
@@ -33,11 +33,10 @@ publish=()->
 
   fileName = distArchive
   stats = fs.statSync fileName
-  rest.post conf.box.host+'/deploy',
-    query:
-      access_token: conf.box.access_token
+  rest.post '/deploy',
     data:
       file: rest.file fileName, null, stats.size, null, 'application/x-gzip'
+    , conf.box.host
   .on 'complete', (data, response)->
     helper.catchError data, response, (data)->
       cli.ok data.message+" in box [#{conf.box.id}]"
