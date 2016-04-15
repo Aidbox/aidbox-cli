@@ -4,6 +4,8 @@ rest   = require 'restler'
 config = require './conf'
 helper = require './helper'
 
+r  = require './rest'
+
 conf = config.conf()
 
 # Get all boxes
@@ -21,7 +23,7 @@ boxCurrent=()->
     cli.ok "You current box [#{conf.box.id}]"
   else
     cli.info "No current box"
-    cli.info "For switch to box, try: $ aidbox box box_name"
+    cli.info "For switch to box, try: $ aidbox box use box_name"
     cli.info "Or create new box: $ aidbox box new box_name"
 
 # Create new box
@@ -43,25 +45,18 @@ boxNew=(name)->
         config.save conf
   .on 'error', helper.errHandler
 
-# Search box by name in boxes list
-searchBox=(boxes, key, val)->
-  for v,i in boxes
-    if v[key] == val
-      return i
-  -1
-
 # Switch to box
 boxSwitch=(name)->
   return cli.error "No box selected" if !name
-  
-  boxList (boxes)->
-    i = searchBox(boxes, 'id', name)
-    if i != -1
-      conf.box = boxes[i]
-      config.save(conf)
-      cli.ok "Current box switch to [#{name}]"
-    else
-      cli.error "Box [#{name}] not exist"
+
+  r.get "/boxes/#{name}"
+  .on 'success', (data, response)->
+    conf.box = data
+    config.save(conf)
+    cli.ok "Current box switch to [#{name}]"
+  .on 'fail', ()->
+    cli.error "Cannot connect to box [#{name}]"
+  .on 'error', helper.errHandler
 
 # Show help data
 boxHelp=()->

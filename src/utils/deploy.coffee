@@ -34,9 +34,8 @@ publish=()->
   fileName = distArchive
   stats = fs.statSync fileName
   rest.post conf.box.host+'/deploy',
-    multipart: true
-    username: conf.root
-    password: conf.box.secret
+    query:
+      access_token: conf.box.access_token
     data:
       file: rest.file fileName, null, stats.size, null, 'application/x-gzip'
   .on 'complete', (data, response)->
