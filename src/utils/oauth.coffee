@@ -6,27 +6,34 @@ config = require './conf'
 helper = require './helper'
 conf   = config.conf()
 
-login=()->
+auth = (username, password)->
+  rest.get conf.server+'/boxes',
+      username: username
+      password: password
+      data:
+        grant_type: 'client_credentials'
+        scope: 'ups'
+    .on 'complete', (data, response)->
+      helper.catchError data, response, (data)->
+        cli.ok "Auth success"
+        conf.username = username
+        conf.password = password
+        config.save conf
+    .on 'error', helper.errHandler
+
+
+login=([username, password])->
   if (conf.username && conf.password)
     cli.info "You are logged in #{conf.username}"
   else
-    read {prompt: "Login: " }, (err, username)->
-      return cli.error err if err
-      read {prompt: "Password: ", silent: true }, (err, password)->
+    if username && password
+      auth(username, password)
+    else
+      read {prompt: "Login: " }, (err, username)->
         return cli.error err if err
-        rest.get conf.server+'/boxes',
-            username: username
-            password: password
-            data:
-              grant_type: 'client_credentials'
-              scope: 'ups'
-          .on 'complete', (data, response)->
-            helper.catchError data, response, (data)->
-              cli.ok "Auth success"
-              conf.username = username
-              conf.password = password
-              config.save conf
-          .on 'error', helper.errHandler
+        read {prompt: "Password: ", silent: true }, (err, password)->
+          return cli.error err if err
+          auth(username, password)
 
 # Logout
 logout=()->
