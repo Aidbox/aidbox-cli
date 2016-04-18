@@ -34,6 +34,7 @@ publish=()->
   fileName = distArchive
   stats = fs.statSync fileName
   rest.post '/deploy',
+    multipart: true
     data:
       file: rest.file fileName, null, stats.size, null, 'application/x-gzip'
     , conf.box.host
