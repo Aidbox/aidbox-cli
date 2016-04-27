@@ -28,7 +28,7 @@ boxNew=(name)->
     data: JSON.stringify({ id: name })
   .on 'success', (data, response)->
     cli.ok "Box [#{name}] created"
-    cli.ok "Current box switch to [#{name}]"
+    boxSwitch name
     conf.box = data
     config.save conf
   .on 'fail', (data)->
