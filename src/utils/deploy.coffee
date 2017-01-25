@@ -25,7 +25,7 @@ compress=(cb)->
     .pipe output
 
   archive
-    .bulk [{expand: true, cwd: dist, src: ['**']}]
+    #.bulk [{expand: true, cwd: dist, src: ['**']}]
     .finalize()
 
 publish=()->

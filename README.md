@@ -11,7 +11,7 @@ Now you need to install aidbox-cli utility globally. Also you may need to instal
 ``` bash
 $ sudo npm install -g aidbox-cli
 $ aidbox v
-  OK: v0.5.10
+  OK: v0.5.11
 ```
 
 ## Logging In and Out
