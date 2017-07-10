@@ -14,5 +14,5 @@ exports.run = ()->
       when 'box'    then box(args, options)
       when 'user'   then user(args, options)
       when 'deploy' then deploy(args, options)
-      when 'v'      then cli.ok "v0.5.14"
+      when 'v'      then cli.ok "v0.5.15"
       when 'test'   then conf.homedir()

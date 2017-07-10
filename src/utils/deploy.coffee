@@ -24,6 +24,7 @@ compress=(cb)->
       cli.error "Erro when compress: #{err}"
     .pipe output
 
+  archive.directory dist, false
   archive
     #.bulk [{expand: true, cwd: dist, src: ['**']}]
     .finalize()
@@ -42,8 +43,8 @@ publish=()->
     helper.catchError data, response, (data)->
       cli.ok data.message+" in box [#{conf.box.id}]"
       fs.unlink distArchive, ()->
+        cli.ok "Available at: https://s3-us-west-1.amazonaws.com/aidbox-production4-aidbox-files/#{conf.box.id}/index.html"
         cli.ok "Tmp files removed"
-        cli.ok "https://s3-us-west-1.amazonaws.com/aidbox-production4-aidbox-files/#{conf.box.id}/dist/index.html"
   .on 'error', helper.errHandler
 
 
