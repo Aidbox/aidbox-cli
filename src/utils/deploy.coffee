@@ -43,6 +43,7 @@ publish=()->
       cli.ok data.message+" in box [#{conf.box.id}]"
       fs.unlink distArchive, ()->
         cli.ok "Tmp files removed"
+        cli.ok "https://s3-us-west-1.amazonaws.com/aidbox-production4-aidbox-files/#{conf.box.id}/dist/index.html"
   .on 'error', helper.errHandler
 
 
